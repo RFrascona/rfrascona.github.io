@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Monitoring & Violation Detection — Richard Frascona</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="case-page">
+
+<nav>
+  <a href="../index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="../index.html#work" class="case-back">← All Work</a>
+  <p class="case-eyebrow">Residential PropTech · Platform & Data Systems</p>
+  <h1 class="case-headline">Real-Time Portfolio Monitoring<br>& Violation Detection</h1>
+  <p class="case-deck">Designing a unified three-source monitoring platform that detected contract breaches in real time — eliminating months of manual audit work and shifting enforcement from reactive to proactive across a 40,000-property national portfolio.</p>
+  <div class="case-outcomes-row">
+    <div class="outcome-chip"><span class="outcome-number">40k</span><span class="outcome-label">Contracts monitored</span></div>
+    <div class="outcome-chip"><span class="outcome-number">33</span><span class="outcome-label">States covered</span></div>
+    <div class="outcome-chip"><span class="outcome-number">60+</span><span class="outcome-label">Audit hours eliminated/mo</span></div>
+    <div class="outcome-chip"><span class="outcome-number">15%</span><span class="outcome-label">Collections increase</span></div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section">
+    <p class="case-section-label">The Business Context</p>
+    <p>The core product being offered by a residential PropTech startup was the proprietary right-to-list agreement. The premise of this product was that homeowners would agree to work with this brokerage in the future when they were ready to sell in exchange for a cash payment. This business model only works if the clients honor their agreements. Unfortunately, it became evident that this was not always the case.</p>
+    <p>In some cases, clients were entering into listing agreements with competing brokerages, in others, clients were selling properties off-market entirely. Each breach represented a direct financial loss because the business had already paid origination fees including the original client payment and other costs associated with underwriting and sales. In cases where properties already transacted, there was very little recourse to recover these costs. Therefore, early intervention was critical in order to attempt to step in and enforce the brokerage's right to represent the seller in their transaction.</p>
+    <p>At the outset, the monitoring approach was rather straightforward: cross-reference the portfolio against existing MLS data streaming through RETS connections to check for listings while also performing monthly audits of public ownership records to verify the title had not changed. In practice, this was a tedious and laborious process, and the fact that each MLS only offered regional coverage added a costly development component to geographic expansion.</p>
+  </div>
+
+  <!-- ARTIFACT: Before/After table -->
+  <div class="artifact-block">
+    <p class="artifact-label">Manual Process vs. Automated Platform</p>
+    <table class="comparison-table">
+      <thead>
+        <tr><th>Dimension</th><th>Manual Audit Process</th><th>Automated Platform</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Monitoring Frequency</td><td>Monthly</td><td>Continuous</td></tr>
+        <tr><td>Portfolio Coverage</td><td>Partial</td><td>Complete</td></tr>
+        <tr><td>Data Sources</td><td>RETS (select markets) & Manual Title Search</td><td>Public Records API, MLS API, FSBO Feed</td></tr>
+        <tr><td>Breach Detection Timing</td><td>Majority post-close</td><td>Real-time / near real-time</td></tr>
+        <tr><td>Analyst Time Per Cycle</td><td>3–5 days/month</td><td>Eliminated</td></tr>
+        <tr><td>Monthly Hours</td><td>60+</td><td>Minimal</td></tr>
+        <tr><td>Developer Dependency</td><td>Consistent RETS integrations per market</td><td>None — API scales with growth</td></tr>
+        <tr><td>FSBO Visibility</td><td>None</td><td>Covered</td></tr>
+        <tr><td>Off-Market Detection</td><td>Manual title search</td><td>Automated deed monitoring</td></tr>
+        <tr><td>False Positive Handling</td><td>Manual</td><td>Automated state logic</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Problem</p>
+    <p>Within the first few years, the business scaled from the initial 3 markets into 33 states. Simultaneously, the portfolio was growing at a rapid rate. The manual audit process required researching each property individually through county records or third-party tools to verify ownership, then aggregating and reporting on those results. Altogether, this was taking anywhere from 3–5 days each month and consuming analyst capacity that grew with each new market.</p>
+    <p>On the MLS side, the continual onboarding of RETS feeds had its own challenges. MLS data can be regionally fragmented with multiple providers overlapping in the same geography. On top of that, there was no standardized integration — each feed required custom mapping as well as licensing compliance coordination and reviews. Every new market meant a new integration negotiation and a development cycle that couldn't keep pace with the business's expansion rate. Beyond that limitation, the MLS coverage didn't include FSBO listings, meaning there was another coverage gap that remained unaddressed.</p>
+    <p>The monitoring infrastructure the business had built was already failing to cover the portfolio it had. Projecting forward, it was clear this approach would require significant ongoing developer resources just to stand still, while leaving material coverage gaps that represented direct legal and financial exposure.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">My Role</p>
+    <p>I had been supporting the underwriting team on the monthly deed audits and understood the manual process intimately — its coverage gaps, its labor intensity, and its fundamental inability to scale. As data product manager, I was also uniquely positioned to understand what was available across vendors, how public records were structured across different jurisdictions, and how MLS data flowed and where its access constraints were.</p>
+    <p>I conceived the unified monitoring platform, identified and negotiated the vendor relationships that made it possible, secured executive buy-in, and drove the product definition from data architecture through CRM workflow logic. The engineering team built what I defined.</p>
+  </div>
+
+  <!-- ARTIFACT: Architecture diagram -->
+  <div class="artifact-block">
+    <p class="artifact-label">Data System Architecture</p>
+    <img src="../assets/diagrams/violation-architecture.png" alt="Three-source monitoring architecture diagram showing Attom Public Records API, Attom MLS Lookup API, and FSBO Headless Browser Ingestion feeding into Matching and Deduplication Layer, Violation Event Engine, and CRM Module" class="artifact-img">
+    <p class="artifact-caption">Three-source monitoring architecture — Attom public records API for ownership verification, Attom MLS lookup API for listing detection, and headless browser FSBO ingestion — flowing through a unified matching and deduplication layer into the violation event engine and CRM workflow module.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Approach</p>
+    <p><strong>Replacing the manual audit.</strong> The core insight was that the monthly manual audit needed to be replaced entirely by a property-level public records API with monthly county recorder refreshes. I identified Attom Data as the vendor capable of providing both the public records API and, critically, something more difficult to obtain: an MLS listing status lookup via API. MLS data is heavily protected and most vendors restrict its use to published listing applications. By demonstrating that our use case was monitoring rather than publication, I was able to negotiate a listing status based API endpoint. This non-standard arrangement eliminated the need for individual RETS integrations as we entered new markets — that single vendor relationship replaced two expensive, slow, manual processes simultaneously.</p>
+    <p><strong>Closing the coverage gaps.</strong> For Sale by Owner listings were invisible to both MLS and public records. I sourced an FSBO lead vendor and worked with engineering to design a headless browser solution that periodically downloaded bulk FSBO listings and loaded them into our database for cross-referencing against the portfolio. It wasn't elegant, but it closed a meaningful coverage gap that had previously gone unmonitored entirely.</p>
+    <p><strong>Property matching and false positive logic.</strong> Each data source presented its own identity resolution challenge. Matching a monitoring signal reliably to the correct portfolio property required sophisticated matching logic and validation rules that I defined in collaboration with the engineering team. Equally important was the event logic governing when a signal constituted a reportable violation:</p>
+    <ul>
+      <li>Incoming breach signals triggered a new violation event with status <strong>Awaiting Review</strong>, queued for legal team verification</li>
+      <li>Confirmed breaches were escalated to <strong>Active Violation</strong>, initiating legal outreach workflows</li>
+      <li>Subsequent signals on a property with an active violation of the same type were suppressed to prevent duplicate notification</li>
+      <li>Listings identified as originating from this brokerage were flagged and excluded from violation processing</li>
+      <li>Signals that couldn't be confirmed were dispositioned as <strong>Invalid</strong>, triggering analyst investigation</li>
+    </ul>
+    <p>This logic was the difference between a monitoring system and a reliable operational tool. Without it the legal team would have been buried in noise. With it, they could trust that every event was worth looking at.</p>
+    <p><strong>The CRM violation module.</strong> I also owned the product definition of the violation module within the CRM — the interface through which the legal team managed the entire enforcement workflow. Breach states, status transitions, notification logic, disposition options, and the reporting layer that surfaced active violations and historical breach patterns to leadership.</p>
+  </div>
+
+  <!-- ARTIFACT: CRM Screenshots -->
+  <div class="artifact-grid artifact-block">
+    <div>
+      <p class="artifact-label">Violation Module — List View</p>
+      <img src="../assets/images/violation-ui-list.jpg" alt="Contract violation list view showing violation type taxonomy, status filters, and violation records" class="artifact-img">
+      <p class="artifact-caption">Violation management interface showing the full taxonomy — LISTING_FSBO, LISTING_MLS, TRANSFER_INTRAFAMILY, TRANSFER_NAME_CHANGE, TRANSFER_OWNER_LEGAL_ENTITY, TRANSFER_THIRD_PARTY — with AWAITING_REVIEW status queue and contract-level detail.</p>
+    </div>
+    <div>
+      <p class="artifact-label">Violation Module — Event Detail Modal</p>
+      <img src="../assets/images/violation-ui-modal.jpg" alt="Contract violation creation modal showing violation type, status, source, listing details, and disposition fields" class="artifact-img">
+      <p class="artifact-caption">Violation event creation and disposition interface — capturing violation type, source, listing provider, competing brokerage, In Litigation flag, and case notes. The workflow states I defined are reflected in the status and disposition options.</p>
+    </div>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Outcome</p>
+    <p>The platform monitored the full portfolio of approximately 40,000 contracts across 33 states continuously and automatically. The manual audit process that had required 3 to 5 days of analyst work each month was eliminated entirely — conservatively over 60 hours of manual effort redirected away from audit work each month.</p>
+    <p>Early detection changed the enforcement economics. Catching a breach while a listing was still active rather than discovering a closed transaction through a monthly title search preserved options. Collections increased 15% as a direct result, and the actual improvement in recoverable value was likely higher given the shift from reactive to proactive detection. The platform scaled with the portfolio without adding headcount or developer capacity — that was the original design goal and it held.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">What I'd Do Differently</p>
+    <p>The FSBO solution which relied upon the headless browser scraping bulk leads from a vendor platform worked but was brittle by design. It was the right call given the constraints and timeline, but a proper data partnership with a structured feed would have been more reliable and easier to maintain. I'd push harder for that commercial arrangement earlier rather than engineering around the data access problem.</p>
+    <p>I'd also have invested earlier in the property matching layer. The identity resolution logic we built was functional but was designed reactively as edge cases surfaced. Starting with a more rigorous matching architecture from day one would have reduced false positives in the early months and built more legal team confidence in the system faster.</p>
+  </div>
+
+  <div class="case-tags">
+    <span class="case-tag">API Integration</span>
+    <span class="case-tag">Data Architecture</span>
+    <span class="case-tag">Attom Data</span>
+    <span class="case-tag">Entity Resolution</span>
+    <span class="case-tag">Workflow Automation</span>
+    <span class="case-tag">CRM Product Design</span>
+    <span class="case-tag">Vendor Negotiation</span>
+  </div>
+
+</div>
+
+<section class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+</body>
+</html>

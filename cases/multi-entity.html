@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Entity CRM Architecture — Richard Frascona</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="case-page">
+
+<nav>
+  <a href="../index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="../index.html#work" class="case-back">← All Work</a>
+  <p class="case-eyebrow">Wholesale Real Estate Joint Venture · Platform Architecture</p>
+  <h1 class="case-headline">Multi-Entity CRM Architecture<br>& Shared Platform Design</h1>
+  <p class="case-deck">Collaboratively designing a multi-tenant data architecture that enabled two independent operating companies to share a single CRM platform with full data isolation — delivering a cash-strapped startup access to sophisticated operational infrastructure without building from scratch.</p>
+  <div class="case-outcomes-row">
+    <div class="outcome-chip"><span class="outcome-number">$2–3k</span><span class="outcome-label">Monthly infra savings</span></div>
+    <div class="outcome-chip"><span class="outcome-number">2</span><span class="outcome-label">Entities on shared infra</span></div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section">
+    <p class="case-section-label">The Business Context</p>
+    <p>When Golden Key Marketing Group was established as a joint venture, the engineering team and I forked the existing CRM platform and built a full clone on distinct infrastructure — a clean copy of the original architecture configured for the new wholesale real estate operation.</p>
+    <p>A year later a second startup entered the picture. A new operating company within the same ownership group needed a CRM to support its growing outbound sales operation. The ownership group faced a straightforward constraint: they needed sophisticated software but didn't have the budget to build or license an independent technology stack. Off-the-shelf software and spreadsheets had carried them to this point. They weren't going to carry them further.</p>
+    <p>The obvious solution — another full infrastructure clone — was off the table on cost grounds. But simply adding the new entity to the existing CRM wasn't viable either. The two businesses had distinct workflows, separate sales teams, independent operational processes, and no business reason to share visibility into each other's data. Running them on the same single-entity instance would have created workflow crossover and operational chaos.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">My Role</p>
+    <p>I was part of the initial discussion alongside the CTO and lead engineer where we worked through the architectural options together. My contribution was understanding the business requirements of both entities, translating the technical tradeoffs into terms the ownership group could evaluate, and securing buy-in for the direction we chose. Once the decision was made I owned the product definition, oversaw the rollout, and assisted with QA. The engineering implementation was a collaborative effort — I don't claim to have independently architected the solution, but the business logic, requirements definition, and stakeholder alignment were mine to own.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Approach</p>
+    <p><strong>Evaluating the options.</strong> We considered three paths. Independent infrastructure for each entity was the cleanest separation but duplicated costs the business couldn't justify. Scaled-down isolated instances reduced cost somewhat but still fragmented the development effort. The multi-tenant architecture — a single shared platform with entity-level data isolation — preserved development efficiency, eliminated infrastructure duplication, and allowed both entities to benefit from future platform investment simultaneously.</p>
+    <p>The multi-tenant path had one compelling additional argument: the second entity specifically wanted access to the custom outbound dialer software and the telemetry and reporting infrastructure already built into the platform. Those weren't commodity capabilities — they represented significant prior investment. The shared architecture let the new entity leverage that investment immediately without bearing its cost.</p>
+    <p><strong>The architecture.</strong> The solution centered on introducing entity_id as a scoping attribute across core business tables — users, accounts, leads, pipelines, dialer activity, and system configurations. Application queries enforced entity-level filtering so that users operating within a given entity context saw only records belonging to their entity. The same deployed codebase and backend services supported both entities, with tenant resolution handled at the access control layer based on the domain through which users accessed the system. We internally called the combined system Goldenstone.</p>
+    <p><strong>Feature flavoring.</strong> Operational differences between the two businesses required behavioral separation at the application layer. We introduced entity-specific configuration capabilities through feature flags and configuration tables — allowing dialer disposition sets, workflow behavior, and UI elements to vary by entity without maintaining separate product versions. Each business unit maintained its own operational workflows while running on shared infrastructure.</p>
+    <p><strong>Shared services with entity-specific configuration.</strong> Background processing, automation jobs, and external integrations were implemented as shared services but configured with entity-specific credentials and settings. Each entity maintained independent operational integrations while the underlying platform capability was built and maintained once.</p>
+  </div>
+
+  <!-- ARTIFACT: Architecture diagram -->
+  <div class="artifact-block">
+    <p class="artifact-label">Multi-Entity CRM Platform Architecture</p>
+    <img src="../assets/diagrams/multi-entity-architecture.png" alt="Multi-entity CRM platform architecture showing domain-based tenant resolution, RBAC, entity context filtering, shared processing layer, and shared multi-tenant database with entity_id enforcement" class="artifact-img">
+    <p class="artifact-caption">Full platform architecture showing entity-level isolation design — domain-based tenant resolution at the client layer, feature flavoring and config flags, access control layer with RBAC and entity context filtering, shared job queue and automation engine at the processing layer, and a shared multi-tenant database with entity_id enforced across all core tables.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Outcome</p>
+    <p>The platform successfully supported both entities in simultaneous operation on shared infrastructure that cost an estimated $2,000 to $3,000 per month less than maintaining independent deployments. The second entity gained immediate access to a sophisticated outbound dialer, robust telemetry, and a reporting infrastructure that would have taken significant time and capital to build independently. The development timeline was short — a meaningful benefit of the shared architecture approach — and operationally both entities ran cleanly on the platform.</p>
+    <p>The more important outcome was architectural: the platform evolved from a single-entity CRM into a genuine multi-tenant data platform capable of onboarding new operating companies without infrastructure rebuild.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">What I'd Do Differently</p>
+    <p>The cross-entity administrative access model didn't work as well in practice as it did on paper. The intent was to give administrators convenient visibility across both entities from a single login. What we didn't anticipate well enough was the session management complexity — an administrator with an active session in one entity who then authenticated into the other entity created conflicts that required force-ending the existing session. This became operationally confusing and undermined the convenience the feature was supposed to provide.</p>
+    <p>In hindsight I would have required distinct administrative accounts per entity from the start and built cross-entity reporting as a separate administrative view rather than blurring the session boundary. Convenience features that introduce operational confusion aren't convenient. The cleaner separation would have been worth the small additional friction at login.</p>
+  </div>
+
+  <div class="case-tags">
+    <span class="case-tag">Multi-Tenancy</span>
+    <span class="case-tag">Data Governance</span>
+    <span class="case-tag">Platform Architecture</span>
+    <span class="case-tag">RBAC</span>
+    <span class="case-tag">CRM Design</span>
+    <span class="case-tag">Feature Flags</span>
+    <span class="case-tag">Infrastructure Design</span>
+  </div>
+
+</div>
+
+<section class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+</body>
+</html>

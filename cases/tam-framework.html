@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Census-Driven TAM Framework — Richard Frascona</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="case-page">
+
+<nav>
+  <a href="../index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="../index.html#work" class="case-back">← All Work</a>
+  <p class="case-eyebrow">Residential PropTech · Data Strategy & Market Intelligence</p>
+  <h1 class="case-headline">Census-Driven TAM Framework<br>& Geographic Expansion</h1>
+  <p class="case-deck">Building a multi-dimensional market intelligence framework from publicly available Census data to give C-suite leadership a rigorous analytical foundation for geographic expansion decisions.</p>
+  <div class="case-outcomes-row">
+    <div class="outcome-chip"><span class="outcome-number">3→33</span><span class="outcome-label">Markets expanded</span></div>
+    <div class="outcome-chip"><span class="outcome-number">4</span><span class="outcome-label">Measurement dimensions</span></div>
+    <div class="outcome-chip"><span class="outcome-number">ZIP→State</span><span class="outcome-label">Geographic hierarchy</span></div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section">
+    <p class="case-section-label">The Business Context</p>
+    <p>As the company's right-to-list agreement product gained traction in its initial Florida markets, the question of where to expand next became strategically urgent. The business model's economics were sensitive to local market conditions in ways that weren't immediately obvious. A market with high population density might look attractive on the surface but produce poor results if homeownership rates were low, home values fell outside the product's qualifying range, or residents moved too infrequently to generate contract activity within a meaningful timeframe.</p>
+    <p>Expansion decisions made without this context risked deploying significant marketing capital into markets where the product was structurally unlikely to perform — burning operating cash on lead acquisition in geographies where the addressable opportunity was fundamentally limited. There was no framework for evaluating this. Nobody had built one.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">My Role</p>
+    <p>A member of the leadership team asked if I could put some data together to help inform expansion thinking. What followed was entirely self-directed. I designed the methodology, identified and sourced the data, built the transformation and aggregation logic, and delivered a fully structured reporting framework for executive consumption. No analyst support, no vendor-provided model, no template to work from.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">Identifying the Right Dimensions</p>
+    <p>The first challenge was deciding what to measure. Geographic expansion analysis typically starts with population and household counts — but for this product those numbers were nearly irrelevant. What mattered was a specific subset of the population: homeowners with meaningful equity, stable tenure, home values within the product's qualifying range, and low delinquency risk.</p>
+    <p>I identified four measurement dimensions that mapped directly to the business's specific variables:</p>
+    <ul>
+      <li><strong>Homeownership</strong> — owner-occupied home counts and ownership rates by geography. The primary filter for addressable market size.</li>
+      <li><strong>Residency tenure</strong> — the distribution of how long residents had lived in their homes. Newer homeowners had more of their expected selling probability curve ahead of them — a more valuable asset for the right-to-list model.</li>
+      <li><strong>Mortgage delinquency</strong> — delinquency rates by geography as a proxy for underwriting risk. Markets with elevated delinquency represented both a lead quality problem and a portfolio risk factor.</li>
+      <li><strong>Home values</strong> — average home values and the distribution of homes across value bands. Markets where the majority of homes fell below the qualifying threshold weren't addressable regardless of homeownership rates.</li>
+    </ul>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">Building the Data Infrastructure</p>
+    <p>The primary data source was the American Community Survey — the Census Bureau's ACS five-year estimates, which provided the sample depth required for reliable ZIP-code-level analysis. I exported and transformed raw ACS datasets across homeownership, tenure, and home value dimensions, building the aggregation logic that rolled ZIP-level data up through city, MSA, and state levels into a coherent reporting hierarchy. Mortgage delinquency data was sourced separately and integrated at the MSA level.</p>
+    <p>I also layered in lead volume data from a marketing partner — not modeled estimates but actual leads available for purchase in each geography over a recent 30-day window. This grounded the Census-derived analysis in observed market activity, providing a real-world demand signal alongside the structural market characteristics.</p>
+  </div>
+
+  <!-- ARTIFACT: Census data import -->
+  <div class="artifact-block">
+    <p class="artifact-label">ACS Census Data Import — ZIP-Level Raw Data</p>
+    <img src="../assets/images/tam-census-raw.png" alt="Raw ACS Census data import showing ZIP-level housing estimates, ownership data, and tenure cohorts" class="artifact-img">
+    <p class="artifact-caption">Raw ACS five-year estimate data at the ZIP code level — the foundation layer of the analysis. Thousands of rows of housing unit estimates, occupancy rates, tenure cohorts, and home value distributions processed and transformed into the aggregated reporting framework.</p>
+  </div>
+
+  <!-- ARTIFACT: Market definition tab -->
+  <div class="artifact-block">
+    <p class="artifact-label">Market Definition — ZIP to MSA Aggregation</p>
+    <img src="../assets/images/tam-market-definition.png" alt="Market definition tab showing ZIP code data aggregated to city and MSA level with homeownership, tenure, and value metrics" class="artifact-img">
+    <p class="artifact-caption">The market definition layer — ZIP-level data aggregated by market with homeownership counts, occupancy types, tenure cohort distributions, median home values, and weighted medians. This transformation layer fed the executive summary reporting.</p>
+  </div>
+
+  <!-- ARTIFACT: Four reporting tables -->
+  <div class="artifact-block">
+    <p class="artifact-label">Executive Summary — Four-Dimension Market Analysis</p>
+    <img src="../assets/images/tam-summary-tables.png" alt="Four reporting tables showing homeownership, residency tenure, mortgage status, and home values across eight markets" class="artifact-img">
+    <p class="artifact-caption">The executive-facing deliverable — four measurement dimensions across eight markets simultaneously. Table 1: Homeownership rates and owner-occupied counts. Table 2: Residency tenure cohort distribution. Table 3: Mortgage status and delinquency rates. Table 4: Home value distribution across qualifying price bands. Highlighted cells indicate markets where home value concentration fell below the product threshold — a direct signal to deprioritize those geographies.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Outcome</p>
+    <p>The framework became a reference tool in C-level expansion strategy discussions as the business grew from 3 markets to 33 states. Market entry decisions were evaluated against the data alongside legal, regulatory, and operational considerations.</p>
+    <p>Critically the framework did more than identify attractive markets — it provided analytical cover for decisions not to enter markets that appeared attractive on conventional measures. High-density metros with strong name recognition but structurally low homeownership rates, or markets where home value distributions showed the majority of properties below the product's qualifying threshold, could be deprioritized with data rather than intuition. That kind of disciplined capital allocation was meaningful in a business model where every market entry required upfront marketing investment before any revenue was generated.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">What I'd Do Differently</p>
+    <p>The framework presented four reporting dimensions as parallel tables — each answering "how does this market look" independently. What it didn't do was answer "which market should we enter next" directly.</p>
+    <p>In hindsight I would have built a composite scoring model on top of the four dimensions — weighting each variable by its relative importance to the product's economics and producing a single market attractiveness score for each geography. Executives could rank and sequence market entry decisions from that score rather than synthesizing four separate tables themselves. The analytical foundation was sound. The last mile — translating parallel analysis into a prioritized decision output — was left to the people reading it rather than built into the framework itself. That's the gap I'd close if I were building it today.</p>
+  </div>
+
+  <div class="case-tags">
+    <span class="case-tag">Census / ACS Data</span>
+    <span class="case-tag">Market Intelligence</span>
+    <span class="case-tag">Excel / Pivot Tables</span>
+    <span class="case-tag">TAM Modeling</span>
+    <span class="case-tag">Geographic Analysis</span>
+    <span class="case-tag">Executive Reporting</span>
+    <span class="case-tag">Data Strategy</span>
+  </div>
+
+</div>
+
+<section class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+</body>
+</html>

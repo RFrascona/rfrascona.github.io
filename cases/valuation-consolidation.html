@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valuation Vendor Consolidation — Richard Frascona</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="case-page">
+
+<nav>
+  <a href="../index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="../index.html#work" class="case-back">← All Work</a>
+  <p class="case-eyebrow">Residential PropTech · Data Strategy & Vendor Management</p>
+  <h1 class="case-headline">Valuation Vendor Consolidation<br>& Data Infrastructure Redesign</h1>
+  <p class="case-deck">Driving a multi-month analytical evaluation that consolidated three fragmented data vendors into a unified platform — eliminating siloed valuations across departments, reducing costs by 35%, and eliminating scaling costs entirely.</p>
+  <div class="case-outcomes-row">
+    <div class="outcome-chip"><span class="outcome-number">35%</span><span class="outcome-label">Monthly cost reduction</span></div>
+    <div class="outcome-chip"><span class="outcome-number">3</span><span class="outcome-label">Departments unified</span></div>
+    <div class="outcome-chip"><span class="outcome-number">1,400+</span><span class="outcome-label">Transactions analyzed</span></div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section">
+    <p class="case-section-label">The Business Context</p>
+    <p>MV Realty's business model depended on accurate property valuations at every stage of its pipeline. Marketing used valuations to qualify inbound leads worth purchasing. Sales used them to construct offers to prospective clients. Finance used them to underwrite assets and report portfolio value to lending partners.</p>
+    <p>Three departments. Three different valuation sources. Three different numbers on the same property.</p>
+    <p>Marketing was running on Melissa Data. Sales was producing offers against RPR's RVM product. Finance was carrying forward whichever figure arrived with the deal. Nobody had designed this fragmentation intentionally — it had accumulated organically as each department solved its own immediate problem with whatever tool was available. The cumulative effect was significant: the asset marketing thought was worth acquiring, the offer sales made, and the value finance was underwriting against were routinely different figures on the same property. The inconsistency was silent, systematic, and compounding at every stage of the pipeline.</p>
+    <p>Alongside the data quality problem was a cost structure problem. The business was running significant monthly spend across three vendors — DataTree AVM, Attom Data, and Melissa — all priced on a per-API-call model. As the business expanded from 3 markets toward 33 states, that cost would scale proportionately with volume. Every new market, every new agent, every new lead purchased added to the monthly data bill.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">My Role</p>
+    <p>I identified both problems, built the analytical case for consolidation over several months, managed the vendor evaluation and negotiation process, secured executive buy-in, and defined the infrastructure architecture for the replacement system. I coordinated the accuracy validation with our senior analyst before making the final recommendation to leadership.</p>
+    <p>This was not a straightforward procurement exercise. It required navigating contract timing windows, a vendor attempting to renegotiate previously agreed pricing, a DataTree billing situation that introduced additional commercial complexity, and the need to validate a replacement AVM product against real transaction data before committing to a multi-year contract.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">Validating the Replacement AVM</p>
+    <p>Before recommending any transition I ran an independent accuracy analysis comparing Attom AVM against RVM across 1,400+ offers from a recent 45-day period. I followed this with a broader multi-state validation to ensure Florida results held nationally.</p>
+  </div>
+
+  <!-- ARTIFACT: AVM variance analysis -->
+  <div class="artifact-block">
+    <p class="artifact-label">AVM Accuracy Comparison — Four Vendor Analysis</p>
+    <img src="../assets/images/valuation-variance.png" alt="Four-vendor AVM comparison showing match rates, sum differences, and average percentage differences against RVM" class="artifact-img">
+    <p class="artifact-caption">Comparative accuracy analysis across RVM, Attom, DataTree, and Melissa. Attom AVM shows the highest match rate at 87% with a -1.44% average variance against actual sales — a conservative posture that reduces offer risk. DataTree ran +2% above RVM; Melissa +1% — both systematically inflating valuations.</p>
+  </div>
+
+  <div class="artifact-block">
+    <p class="artifact-label">Study 2 — Vendor to Actual Sale Comparison</p>
+    <img src="../assets/images/valuation-study2.jpg" alt="Multi-vendor comparison against actual sale prices showing variance statistics across Attom, Melissa, Remine, and DataTree" class="artifact-img">
+    <p class="artifact-caption">Four-vendor comparison against actual closed sale prices. Data suggests Attom predicted actual sales prices with the highest degree of accuracy — on average closest to actual sale price — while offering the narrowest price spread between min/max expected home value. The senior analyst concluded: Attom AVM is a more conservative and reliable estimate than the alternatives.</p>
+  </div>
+
+  <!-- ARTIFACT: Before/After table -->
+  <div class="artifact-block">
+    <p class="artifact-label">Before & After — Vendor Stack Comparison</p>
+    <table class="comparison-table">
+      <thead>
+        <tr><th>Dimension</th><th>Multi-Vendor (Before)</th><th>Consolidated Platform (After)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Vendors</td><td>DataTree AVM, Attom Data, Melissa</td><td>Attom Bulk Bundle</td></tr>
+        <tr><td>Pricing Model</td><td>Per-call — scales with volume</td><td>Fixed bulk — no scaling cost</td></tr>
+        <tr><td>Monthly Cost</td><td>Significant — three separate contracts</td><td>35% reduction</td></tr>
+        <tr><td>AVM Availability</td><td>Varies by vendor</td><td>Highest across all three</td></tr>
+        <tr><td>AVM Posture</td><td>At or above market value</td><td>~3% conservative — reduces offer risk</td></tr>
+        <tr><td>Departments Served</td><td>Siloed — different vendor per function</td><td>Unified — marketing, sales, finance</td></tr>
+        <tr><td>Scaling Cost</td><td>Increases with every new market</td><td>Eliminated</td></tr>
+        <tr><td>Data Freshness</td><td>API on-demand</td><td>Monthly bulk refresh — centralized DB</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">Building the Executive Case</p>
+    <p>I presented a full briefing to senior leadership covering the complete situation — current contract status across all three vendors, the Attom bundle terms, accuracy validation results, infrastructure requirements, and a clear recommendation to proceed. The briefing mapped each current use case to its replacement source and outlined the development investment required to support the transition.</p>
+  </div>
+
+  <!-- ARTIFACT: Executive Briefing Summary -->
+  <div class="artifact-block">
+    <p class="artifact-label">Executive Briefing Summary — Data Vendor Consolidation</p>
+    <img src="../assets/images/valuation-briefing.png" alt="Executive briefing summary document showing recommendation to consolidate to Attom AVM bulk contract" class="artifact-img">
+    <p class="artifact-caption">Executive briefing prepared for senior leadership — covering the current situation, recommendation, rationale, and infrastructure requirements. This document drove the consolidation decision.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">Redesigning the Infrastructure</p>
+    <p>The architectural shift was as significant as the vendor decision. The previous model — individual API calls per property lookup across multiple vendors — meant data costs scaled with every transaction. The replacement model centralized bulk nationwide data refreshed monthly into an internal database, eliminating per-call costs entirely.</p>
+    <p>Centralizing the data layer meant every department — marketing, sales, finance — queried the same internal database for valuations. The fragmentation that had produced three different numbers on the same property was structurally eliminated. For the first time the business was working from a single source of truth across the entire pipeline.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Outcome</p>
+    <p>Monthly data expenditure dropped by 35% with a fixed cost structure that no longer scaled with business volume. Projected against the growth trajectory from 3 to 33 states, the avoided scaling costs significantly exceeded the direct savings figure.</p>
+    <p>More consequentially, the business established unified valuation infrastructure for the first time. Marketing, sales, and finance were working from the same number on every property. The silent inconsistency that had been compounding across every deal was eliminated by design rather than managed by exception. Attom AVM's conservative posture also improved underwriting discipline — offers built on systematically lower valuations reduced the risk of overpaying for assets, with direct implications for portfolio quality.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">What I'd Do Differently</p>
+    <p>The transition timeline was tighter than ideal — not because the evaluation started late, but because competing development priorities and the pace of geographic expansion meant resources weren't available to act sooner. I had been building the analytical case for consolidation well in advance of the contract deadline.</p>
+    <p>The lesson I took was about how to frame data infrastructure decisions within a fast-moving organization. Positioning this as back-office cost optimization — even with strong analytical support — meant it competed with feature development for resources. Leading with the risk to valuation consistency across the credit facility and borrowing base would have landed differently with the people controlling prioritization decisions. Finance and risk framing moves faster than operational efficiency framing in organizations where capital relationships are central to the business model.</p>
+  </div>
+
+  <div class="case-tags">
+    <span class="case-tag">Vendor Management</span>
+    <span class="case-tag">Data Strategy</span>
+    <span class="case-tag">Attom Data</span>
+    <span class="case-tag">AVM Analysis</span>
+    <span class="case-tag">Infrastructure Design</span>
+    <span class="case-tag">Executive Communication</span>
+    <span class="case-tag">Build vs Buy</span>
+  </div>
+
+</div>
+
+<section class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+</body>
+</html>

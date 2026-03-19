@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL-Driven Outbound Segmentation — Richard Frascona</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body class="case-page">
+
+<nav>
+  <a href="../index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<div class="case-hero">
+  <a href="../index.html#work" class="case-back">← All Work</a>
+  <p class="case-eyebrow">Residential PropTech · Operational Systems & Data</p>
+  <h1 class="case-headline">SQL-Driven Outbound Segmentation<br>& Call Center Operations</h1>
+  <p class="case-deck">Designing and governing the lead segmentation infrastructure powering a 230+ agent outbound operation across 33 states — with nightly queue management, real-time compliance enforcement, and data-driven group allocation targeting an 18–20% contact rate.</p>
+  <div class="case-outcomes-row">
+    <div class="outcome-chip"><span class="outcome-number">230+</span><span class="outcome-label">Peak simultaneous agents</span></div>
+    <div class="outcome-chip"><span class="outcome-number">16.4%</span><span class="outcome-label">Overall contact rate</span></div>
+    <div class="outcome-chip"><span class="outcome-number">10</span><span class="outcome-label">Segmentation groups</span></div>
+    <div class="outcome-chip"><span class="outcome-number">33</span><span class="outcome-label">States operated</span></div>
+  </div>
+</div>
+
+<div class="case-body">
+
+  <div class="case-section">
+    <p class="case-section-label">The Business Context</p>
+    <p>The inbound marketing channel had proven the product could sell — but it hadn't solved what happened to the leads that didn't convert immediately. Agents weren't following up consistently. Leads were going stale. Marketing spend was being wasted on acquisition that never got a second chance.</p>
+    <p>The initial question was simple: could an outbound dialer recover value from leads that the inbound process had left behind? The answer turned out to be yes — and that answer changed the shape of the entire operation.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">From Test to Infrastructure</p>
+    <p>I was asked to research outbound dialer options for what was scoped as a small pilot with a handful of agents. I selected a cloud-based third-party outbound dialing platform with basic API access and month-to-month terms — appropriate for a test, as it turned out poorly suited for what came next.</p>
+    <p>The pilot produced positive results. Agents were generating contracts from leads that had been written off. Leadership moved immediately to scale the program — first to the existing sales agent team, then to a dedicated team of appointment setters whose sole purpose was to get homeowners on the phone, qualify them, and transfer them to licensed sales agents. That team scaled faster than anyone anticipated. By peak operation we had over 230 transfer specialists dialing simultaneously, each running approximately 400 dials per day across dozens of state brokerages.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">My Role</p>
+    <p>I owned the segmentation logic and group criteria that determined which leads entered the dialing queues and in what priority order. I managed the relationship with our third-party data vendor, oversaw the dialer platform integration in close collaboration with our CTO and senior engineer, and was accountable for overall program performance.</p>
+    <p>I developed the demand planning methodology that became the foundation for an operational planning workbook my analyst built and operationalized. I initially managed daily transfer specialist assignments across state brokerages personally before delegating day-to-day operation to my analyst as volume made that impossible to manage alone. The segmentation queries were developed collaboratively with our data engineering team — I defined the business logic, actively maintained and patched these queries, and executed them daily as part of operational management.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Segmentation Architecture</p>
+    <p><strong>State brokerage organization.</strong> Real estate transactions require state licensing. Our operation was organized by state brokerage — licensed agents were assigned to specific states, and transfer specialists were mapped to state assignments to ensure transfers routed to the correct licensed agent pool. Managing lead supply against transfer specialist demand across dozens of states simultaneously was the central operational challenge.</p>
+    <p><strong>The segmentation groups.</strong> The lead database was segmented into ten groups, each representing a distinct contact population with different eligibility criteria, expected contact rates, and conversion potential. Examples included new leads (highest contact rates, limited volume), 30-day rested (no contact attempt in prior 30 days), 60-day rested, previously interested (expressed interest but didn't convert — high-value, limited volume), unsigned appointments, and previous transfers. Each group had defined SQL-driven eligibility criteria determining when it could be dialed, how recently it needed to have rested, and what priority tier it occupied in the queue.</p>
+    <p><strong>The clientInterestLevel scoring system.</strong> Within groups, leads were further prioritized by a scored interest signal built directly into the segmentation queries. A 0–3 scoring scale evaluated each contact based on prior behavioral signals — Score 3 for a prior offer on record, Score 2 for previously interested or transferred, Score 1 for prior dialer contact, Score 0 for no prior engagement. Queues were ordered by score descending, ensuring transfer specialists were always working highest-signal contacts first.</p>
+    <p><strong>Compliance enforcement.</strong> Compliance logic was enforced through a combination of query-level controls and operational protocols. The segmentation queries enforced cross-system DNC flag suppression from both internal and national DNC registries, active contract exclusion to prevent dialing existing clients, and a 90-day lead purchase expiration. Timezone compliance was managed operationally — transfer specialists were only permitted to place dials during valid calling windows for their assigned state.</p>
+    <p><strong>The nightly requeue process.</strong> The dialing platform's data architecture required leads to be organized into agent-dedicated lead streams. This led to a nightly operational cycle: purge all leads from agent queues, execute the group qualification SQL against the current database state, and refill each agent's queue for the following day's dialing. This process also enforced the group proportion logic — the nightly refill balanced high-contact-rate low-volume groups against high-volume lower-contact-rate groups across dozens of state assignments. At peak volume this felt less like a process and more like a daily puzzle.</p>
+  </div>
+
+  <!-- ARTIFACT: SQL -->
+  <div class="artifact-block">
+    <p class="artifact-label">Group Segmentation Query (Sanitized)</p>
+    <div class="sql-block"><pre>-- Outbound Contact Segmentation Query
+-- Identifies eligible contacts, scores by interest level,
+-- enforces compliance rules
+
+SELECT
+    t1.brokerageId,
+    ls.leadSourceCd,
+    la.clientId,
+    l.phoneE164,
+    sp.state,
+    sp.zipCd AS zip,
+
+    -- DNC compliance: suppress if on internal or national DNC list
+    (
+        SELECT COALESCE(MAX(1), 0)
+        FROM ContactPhone cp
+        WHERE cp.phoneNumberE164 = l.phoneE164
+            AND (cp.doNotCallInd = 1 OR cp.nationalDncInd = 1)
+    ) AS doNotCallInd,
+
+    -- Suppress if active contract exists on this phone number
+    (
+        SELECT COALESCE(MAX(1), 0)
+        FROM ContactPhone cp1
+        JOIN Contract c ON ...
+        JOIN ContractStatus cs ON ...
+        WHERE cp1.phoneNumberE164 = l.phoneE164
+            AND cs.contractStatusCd IN ('ACTIVE', 'CLOSED', 'TERMINATED')
+    ) activeContractInd,
+
+    -- Interest level scoring: 0-3 scale driving queue priority
+    CASE
+        WHEN t1.hasOfferInd = 1 THEN 3          -- Prior offer exists
+        WHEN t1.previouslyInterestedInd > 1
+          OR t1.transferredInd = 1 THEN 2        -- Previously interested
+        WHEN t1.lastDialerContact IS NOT NULL
+          THEN 1                                  -- Prior dialer contact
+        ELSE 0                                    -- No prior engagement
+    END clientInterestLevel
+
+FROM (
+    -- Core eligibility subquery
+    SELECT sp.contactProcessId, sp.brokerageId, ...
+    FROM Brokerage b
+    JOIN ContactProcess sp ON b.brokerageId = sp.brokerageId
+    WHERE b.brokerageId IN (:brokerageIds)
+        AND sp.propertyClassCd = 'SINGLE_FAMILY'
+    HAVING
+        -- 30-day rest interval enforcement
+        (lastDialerContact < NOW() - INTERVAL 30 DAY
+          OR lastDialerContact IS NULL)
+        AND hasTransferLeadInd = 0
+) t1
+
+WHERE (l.propertyEstPriceUsd &lt;= 900000 OR l.propertyEstPriceUsd IS NULL)
+
+HAVING
+    doNotCallInd = 0               -- TCPA: exclude DNC numbers
+    AND activeContractInd = 0      -- Exclude existing clients
+    AND clientInterestLevel > 0    -- Require prior engagement signal
+    AND assignedInd IS NULL        -- Exclude already-queued contacts
+
+ORDER BY clientInterestLevel DESC  -- Highest interest score first
+LIMIT :limit</pre></div>
+    <p class="artifact-caption">Segmentation logic defined by me and implemented in collaboration with our data engineering team. I owned the business rules, eligibility criteria, and priority scoring framework — and actively maintained, patched, and executed these queries daily as part of operational management.</p>
+  </div>
+
+  <!-- ARTIFACT: Group performance -->
+  <div class="artifact-block">
+    <p class="artifact-label">Group Performance Analysis — Contact & Transfer Rates by Segment</p>
+    <img src="../assets/images/outbound-group-performance.png" alt="Pivot table showing contact rates and transfer rates across G1-G9 segmentation groups" class="artifact-img">
+    <p class="artifact-caption">Group-level performance data validating the segmentation hypothesis. G4 and G5 (previously interested, high-signal groups) achieved 30.7% and 25.0% contact rates versus G1 (new leads) at 13.3% on 24,692 eligible contacts. The overall contact rate of 16.4% sits within the 18–20% target range. The contrast between high-contact-rate low-volume groups and high-volume lower-contact-rate groups is the tension the nightly group proportion management was designed to balance.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Demand Planning Methodology</p>
+    <p>To manage daily transfer specialist assignments against lead supply, I developed a demand planning methodology that projected setter demand against available dial supply by brokerage and group. The framework showed demanded dials daily, total available leads and dials, a consumption ratio indicating how efficiently supply was being utilized, and group-level breakdowns across all segments. My analyst operationalized this methodology into the workbook that became our daily management instrument.</p>
+  </div>
+
+  <!-- ARTIFACT: Command center -->
+  <div class="artifact-block">
+    <p class="artifact-label">Operational Demand Planning Workbook (July 2022)</p>
+    <img src="../assets/images/outbound-command-center.png" alt="Demand planning workbook showing transfer specialist demand, lead supply by brokerage, and group allocation across states" class="artifact-img">
+    <p class="artifact-caption">Daily operational planning tool built on my demand planning methodology by my direct report analyst. Shows demanded dials, available lead and dial supply by brokerage, dial multiplier, consumption ratio, and group-level breakdowns — the instrument used to manage 228 transfer specialists across dozens of state brokerages. This snapshot is from July 2022 at near-peak scale.</p>
+  </div>
+
+  <!-- ARTIFACT: Dashboard -->
+  <div class="artifact-block">
+    <p class="artifact-label">Transfer Specialist Activity Dashboard</p>
+    <img src="../assets/images/outbound-dashboard.png" alt="Multi-section reporting dashboard showing brokerage, agent, lead source, match type, lead age, and call outcome reporting" class="artifact-img">
+    <p class="artifact-caption">Performance reporting framework covering brokerage-level summary, agent-level activity, lead source breakdown, property owner match type, lead age cohort performance, call outcomes, and offer status. Built to give operations managers real-time visibility into program performance and enable rapid identification of underperforming segments or agents.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">The Outcome</p>
+    <p>The program grew from a small pilot to the primary new business generation engine for the operation — supporting over 230 simultaneous transfer specialists at peak, running tens of thousands of dials per day across 33 states. Group-level performance data validated the segmentation hypothesis: high-signal groups achieved contact rates exceeding 30% while the program maintained an overall contact rate of 16.4%, within the target operating range.</p>
+  </div>
+
+  <div class="case-section">
+    <p class="case-section-label">What I'd Do Differently</p>
+    <p>The dialer vendor selection at the outset of this program became the single most consequential technical constraint we lived with for years. I selected the platform because it was appropriate for a small pilot — month-to-month terms, basic API, low commitment. When leadership immediately decided to scale, we were operationally locked into a system that wasn't designed for what we were asking of it. The nightly purge and requeue cycle — a significant engineering investment — existed entirely because of the platform's data architecture limitations.</p>
+    <p>The lesson I've carried from this: evaluate vendors against the scale you might need, not the scale you currently have. A pilot that works is likely to become permanent infrastructure. The cost of switching later almost always exceeds the cost of selecting the right tool at the outset.</p>
+  </div>
+
+  <div class="case-tags">
+    <span class="case-tag">SQL</span>
+    <span class="case-tag">Outbound Operations</span>
+    <span class="case-tag">TCPA Compliance</span>
+    <span class="case-tag">Demand Planning</span>
+    <span class="case-tag">Tableau</span>
+    <span class="case-tag">Twilio</span>
+    <span class="case-tag">Lead Segmentation</span>
+    <span class="case-tag">Operational Systems</span>
+  </div>
+
+</div>
+
+<section class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+</body>
+</html>

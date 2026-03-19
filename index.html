@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Richard Paul Frascona II — Product Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* Homepage-specific styles */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  .hero-name em { font-style: italic; color: var(--accent); }
+
+  .hero-summary {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  .hero-summary strong { font-weight: 500; color: var(--ink); }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .hero-cta:hover { color: var(--accent); border-color: var(--accent); }
+  .hero-cta::after { content: '→'; font-family: var(--sans); }
+
+  .hero-right {
+    padding: 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--paper-warm);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .stat-cell {
+    background: var(--paper);
+    padding: 32px 28px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .stat-cell:nth-child(1) { animation-delay: 0.2s; }
+  .stat-cell:nth-child(2) { animation-delay: 0.35s; }
+  .stat-cell:nth-child(3) { animation-delay: 0.5s; }
+  .stat-cell:nth-child(4) { animation-delay: 0.65s; }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  .hero-thesis {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+
+  /* About */
+  #about {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 100px 48px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+  }
+
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-text strong { font-weight: 500; color: var(--ink); }
+
+  .about-details { display: flex; flex-direction: column; gap: 32px; }
+
+  .detail-block { border-left: 1px solid var(--rule); padding-left: 24px; }
+
+  .detail-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .detail-value {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .tools-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    background: var(--paper);
+  }
+
+  /* Pillars */
+  #pillars { background: var(--paper); padding: 100px 48px; }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 80px;
+  }
+
+  .pillar-card {
+    background: var(--paper-warm);
+    padding: 36px 28px;
+    border-top: 3px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .pillar-card:hover { border-top-color: var(--accent); background: var(--cream); }
+
+  .pillar-icon {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+
+  .pillar-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .pillar-desc { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.6; }
+
+  /* Work index */
+  #work {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--rule);
+    padding: 100px 48px;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .work-card {
+    background: var(--paper);
+    padding: 48px 40px;
+    text-decoration: none;
+    border-top: 3px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+    display: block;
+  }
+
+  .work-card:hover { border-top-color: var(--accent); background: var(--cream); }
+
+  .work-card-meta {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .work-card-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .work-card-desc {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    margin-bottom: 24px;
+  }
+
+  .work-card-outcomes { display: flex; gap: 24px; flex-wrap: wrap; }
+
+  .work-outcome {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .work-outcome-num {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .work-outcome-label {
+    font-family: var(--mono);
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .work-card-cta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .work-card:hover .work-card-cta { color: var(--accent); }
+
+  .work-card.thin { background: var(--paper-warm); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); padding: 60px 24px; }
+    .hero-right { padding: 48px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    #about, #pillars, #work { padding: 64px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Richard Paul Frascona II</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#pillars">Expertise</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Product Leader · Data Systems · Platform Architecture</p>
+    <h1 class="hero-name">Richard Paul<br><em>Frascona II</em></h1>
+    <p class="hero-summary">
+      Product leader with an analytical foundation in <strong>behavioral science</strong> and 8+ years building data platforms and operational systems where precision and business outcomes are inseparable. I'm drawn to complex, ambiguous environments where the challenge is imposing structure on messy data and translating it into systems organizations can rely on for high-stakes decisions.
+    </p>
+    <a href="#work" class="hero-cta">View Selected Work</a>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="stat-number">$40M</div>
+        <div class="stat-label">Institutional capital raise supported by platform work</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">35k+</div>
+        <div class="stat-label">Assets evaluated through governed data systems</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">60%</div>
+        <div class="stat-label">Operational overhead reduction via AI automation</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">33</div>
+        <div class="stat-label">States covered by data and monitoring infrastructure</div>
+      </div>
+    </div>
+    <p class="hero-thesis">"I think like a researcher and build like an engineer."</p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>My career has a consistent through-line that is not obvious from the industry labels. <strong>I take systems where the data is messy, the stakes are high, and the structure does not yet exist, and I build the infrastructure that makes those systems reliable and trusted.</strong></p>
+      <p>That foundation started in graduate school. My M.A. in Experimental Psychology at Florida Atlantic University focused on data collection methodology, statistical validity, and what it actually means for a measurement to be reliable. My thesis examined how methodology itself shapes the conclusions you can draw. That perspective has proven far more practical than theoretical.</p>
+      <p>It has shaped how I approached property data early in my career, how I built valuation infrastructure supporting a $40M institutional credit facility, and how I design data systems and governance controls today. When I look at a system, I am not just asking whether it works. I am asking whether the people depending on it can trust it completely.</p>
+	  <p>My work sits at the intersection of product, data, and operations. I build internal platforms and decision systems that translate complex, messy inputs into structured outputs the business can act on with confidence.</p>
+      <p style="font-style: italic; color: var(--ink-muted); border-left: 2px solid var(--rule); padding-left: 16px; margin-top: 28px;">Outside of work, I spend time woodworking, where the same principles apply. Precision matters, and systems either hold or they do not.</p>
+    </div>
+    <div class="about-details fade-in">
+      <div class="detail-block">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Pompano Beach, Florida<br><span style="font-size:0.9rem; color: var(--ink-muted); font-family: var(--sans); font-weight:300;">Open to remote roles nationwide</span></div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Education</div>
+        <div class="detail-value">M.A. Experimental Psychology<br>Florida Atlantic University<br><br>B.A. Psychology & Philosophy<br>Tulane University</div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Core Tools</div>
+        <div class="tools-list">
+          <span class="tool-tag">SQL / MySQL</span>
+          <span class="tool-tag">Tableau</span>
+          <span class="tool-tag">R</span>
+          <span class="tool-tag">Jira</span>
+          <span class="tool-tag">REST APIs</span>
+          <span class="tool-tag">LLM Automation</span>
+          <span class="tool-tag">CRM Systems</span>
+          <span class="tool-tag">Agile / Scrum</span>
+          <span class="tool-tag">MS Purview</span>
+          <span class="tool-tag">Twilio</span>
+        </div>
+      </div>
+      <div class="detail-block">
+        <div class="detail-label">Connect</div>
+        <div class="detail-value">
+          <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.95rem; font-family: var(--sans); font-weight:300;">linkedin.com/in/richard-frascona →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section id="pillars">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Areas of Expertise</h2>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">◈</div>
+      <h3 class="pillar-title">Platform & Data Architecture</h3>
+      <p class="pillar-desc">Multi-entity platform design, data model evolution, schema governance, and shared infrastructure with entity-level isolation controls.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">⟳</div>
+      <h3 class="pillar-title">Workflow Automation & Operational Systems</h3>
+      <p class="pillar-desc">Translating complex operational processes into deterministic system states, routing logic, and compliant automation workflows.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">$</div>
+      <h3 class="pillar-title">Capital Markets & Financial Data</h3>
+      <p class="pillar-desc">Institutional-grade reporting, actuarial modeling, and data infrastructure relied upon by executives, investors, and lending partners.</p>
+    </div>
+    <div class="pillar-card fade-in">
+      <div class="pillar-icon">⚡</div>
+      <h3 class="pillar-title">AI & Intelligent Automation</h3>
+      <p class="pillar-desc">LLM-powered workflow automation, compliance guardrails, human-in-the-loop escalation design, and performance monitoring frameworks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK INDEX -->
+<section id="work">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Selected Work</h2>
+  </div>
+  <div class="work-grid">
+
+    <!-- 1 -->
+    <a href="cases/actuarial-models.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Platform & Data Systems · Lead Case Study</p>
+      <h3 class="work-card-title">Actuarial Models & $40M Capital Formation Platform</h3>
+      <p class="work-card-desc">Co-developing localized property sales probability curves from raw transaction data and building the data infrastructure that enabled institutional capital formation.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">$40M</span><span class="work-outcome-label">Credit facility</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">30M+</span><span class="work-outcome-label">Transactions processed</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">33</span><span class="work-outcome-label">States covered</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 2 -->
+    <a href="cases/violation-detection.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Platform & Data Systems</p>
+      <h3 class="work-card-title">Real-Time Portfolio Monitoring & Violation Detection</h3>
+      <p class="work-card-desc">Designing a unified three-source monitoring platform that detected contract breaches in real time across a 40,000-property national portfolio.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">40k</span><span class="work-outcome-label">Contracts monitored</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">60+</span><span class="work-outcome-label">Audit hours eliminated/mo</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">15%</span><span class="work-outcome-label">Collections increase</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 3 -->
+    <a href="cases/valuation-consolidation.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Data Strategy & Vendor Management</p>
+      <h3 class="work-card-title">Valuation Vendor Consolidation & Data Infrastructure Redesign</h3>
+      <p class="work-card-desc">Driving a multi-month analytical evaluation that consolidated three fragmented data vendors into a unified platform serving marketing, sales, and finance.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">35%</span><span class="work-outcome-label">Cost reduction</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">3</span><span class="work-outcome-label">Depts unified</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">1,400+</span><span class="work-outcome-label">Transactions analyzed</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 4 -->
+    <a href="cases/tam-framework.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Data Strategy & Market Intelligence</p>
+      <h3 class="work-card-title">Census-Driven TAM Framework & Geographic Expansion</h3>
+      <p class="work-card-desc">Building a multi-dimensional market intelligence framework from Census data to guide executive expansion decisions across dozens of states.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">3→33</span><span class="work-outcome-label">Markets expanded</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">4</span><span class="work-outcome-label">Measurement dimensions</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 5 -->
+    <a href="cases/outbound-segmentation.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Operational Systems & Data</p>
+      <h3 class="work-card-title">SQL-Driven Outbound Segmentation & Call Center Operations</h3>
+      <p class="work-card-desc">Designing and governing the lead segmentation infrastructure powering a 230+ agent outbound operation across 33 states with real-time compliance enforcement.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">230+</span><span class="work-outcome-label">Peak agents</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">16.4%</span><span class="work-outcome-label">Contact rate achieved</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">10</span><span class="work-outcome-label">Segmentation groups</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 6 -->
+    <a href="cases/lead-qualification.html" class="work-card fade-in">
+      <p class="work-card-meta">Residential PropTech · Platform & Integration Architecture</p>
+      <h3 class="work-card-title">Real-Time Lead Qualification & Acquisition Engine</h3>
+      <p class="work-card-desc">Operating and optimizing a real-time lead qualification engine evaluating tens of thousands of inbound leads daily across 16+ vendor integrations.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">80k+</span><span class="work-outcome-label">Leads evaluated/day</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">16+</span><span class="work-outcome-label">Vendor integrations</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">97.6%</span><span class="work-outcome-label">Rejection rate</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 7 -->
+    <a href="cases/llm-automation.html" class="work-card fade-in">
+      <p class="work-card-meta">Wholesale Real Estate Joint Venture · AI & Automation</p>
+      <h3 class="work-card-title">LLM-Powered SMS Qualification System</h3>
+      <p class="work-card-desc">Defining the compliance guardrails, qualification logic, and human-in-the-loop escalation design for a customer-facing LLM deployment that replaced a salaried sales tier.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">60%</span><span class="work-outcome-label">Overhead reduction</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">4</span><span class="work-outcome-label">Qualification pillars</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+    <!-- 8 -->
+    <a href="cases/multi-entity.html" class="work-card fade-in thin">
+      <p class="work-card-meta">Wholesale Real Estate Joint Venture · Platform Architecture</p>
+      <h3 class="work-card-title">Multi-Entity CRM Architecture & Shared Platform Design</h3>
+      <p class="work-card-desc">Collaboratively designing a multi-tenant data architecture that enabled two independent operating companies to share a single CRM platform with full data isolation.</p>
+      <div class="work-card-outcomes">
+        <div class="work-outcome"><span class="work-outcome-num">$2-3k</span><span class="work-outcome-label">Monthly savings</span></div>
+        <div class="work-outcome"><span class="work-outcome-num">2</span><span class="work-outcome-label">Entities on shared infra</span></div>
+      </div>
+      <p class="work-card-cta">Read case study →</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect" class="connect-section">
+  <p class="connect-eyebrow">Let's Talk</p>
+  <h2 class="connect-title">Building something that requires<br><em>precision and trust</em>?</h2>
+  <p class="connect-sub">I'm currently exploring Senior Product Manager opportunities in platform, data systems, and operational automation — remote, nationwide.</p>
+  <a href="https://www.linkedin.com/in/richard-frascona/" target="_blank" class="connect-btn">Connect on LinkedIn →</a>
+</section>
+
+<footer>
+  <span class="footer-name">Richard Paul Frascona II</span>
+  <span class="footer-note">Pompano Beach, Florida · Open to Remote</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
