@@ -34,64 +34,65 @@
 
   <div class="case-section">
     <p class="case-section-label">The Business Context</p>
-    <p>As the company's right-to-list agreement product gained traction in its initial Florida markets, the question of where to expand next became strategically urgent. The business model's economics were sensitive to local market conditions in ways that weren't immediately obvious. A market with high population density might look attractive on the surface but produce poor results if homeownership rates were low, home values fell outside the product's qualifying range, or residents moved too infrequently to generate contract activity within a meaningful timeframe.</p>
-    <p>Expansion decisions made without this context risked deploying significant marketing capital into markets where the product was structurally unlikely to perform — burning operating cash on lead acquisition in geographies where the addressable opportunity was fundamentally limited. There was no framework for evaluating this. Nobody had built one.</p>
+    <p>As the company's right-to-list agreement product gained traction in its initial Florida markets, the question of where to expand next became strategically urgent. The business model’s economics were sensitive to local market conditions in ways that were not immediately obvious at first glance. While a market with high population density may look attractive on the surface, the product may perform poorly if ownership rates were low, property values did not align with the target segment, or if ownership tenure was longer than average.</p>
+    <p>Expansion decisions made without this context risked deploying significant marketing capital into markets where the product was structurally unlikely to perform. This would burn operating cash on lead acquisition in geographies where the addressable opportunity was fundamentally limited. At the outset, there was no framework for evaluating this.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">My Role</p>
-    <p>A member of the leadership team asked if I could put some data together to help inform expansion thinking. What followed was entirely self-directed. I designed the methodology, identified and sourced the data, built the transformation and aggregation logic, and delivered a fully structured reporting framework for executive consumption. No analyst support, no vendor-provided model, no template to work from.</p>
+    <p>A member of the Executive leadership team asked if I could put some data together to help inform expansion thinking. What followed was entirely self-directed. I designed the methodology, identified and sourced the data, built the transformation and aggregation logic, and delivered a fully structured reporting framework for executive consumption from end to end.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">Identifying the Right Dimensions</p>
-    <p>The first challenge was deciding what to measure. Geographic expansion analysis typically starts with population and household counts — but for this product those numbers were nearly irrelevant. What mattered was a specific subset of the population: homeowners with meaningful equity, stable tenure, home values within the product's qualifying range, and low delinquency risk.</p>
+    <p>TThe first challenge was deciding what to measure and where to source the data. Geographic expansion analysis typically starts with population and household counts, but for this particular product those numbers could be misleading. What mattered was identifying a specific subset of the population: homeowners with meaningful equity, stable tenure, home values within the product's qualifying range, and low delinquency risk.</p>
     <p>I identified four measurement dimensions that mapped directly to the business's specific variables:</p>
     <ul>
-      <li><strong>Homeownership</strong> — owner-occupied home counts and ownership rates by geography. The primary filter for addressable market size.</li>
-      <li><strong>Residency tenure</strong> — the distribution of how long residents had lived in their homes. Newer homeowners had more of their expected selling probability curve ahead of them — a more valuable asset for the right-to-list model.</li>
-      <li><strong>Mortgage delinquency</strong> — delinquency rates by geography as a proxy for underwriting risk. Markets with elevated delinquency represented both a lead quality problem and a portfolio risk factor.</li>
-      <li><strong>Home values</strong> — average home values and the distribution of homes across value bands. Markets where the majority of homes fell below the qualifying threshold weren't addressable regardless of homeownership rates.</li>
+      <li><strong>Homeownership</strong> - owner-occupied home counts and ownership rates by geography. This was the primary filter for addressable market size. A dense urban market with low homeownership rates was a small opportunity regardless of total population.</li>
+      <li><strong>Residency tenure</strong> - the distribution of how long residents had lived in their homes. This connected directly to contract valuation. Newer homeowners entering a right-to-list agreement had more of their expected selling probability curve ahead of them which produced a more valuable asset.</li>
+      <li><strong>Mortgage delinquency</strong> - delinquency rates by geography served as a proxy for underwriting risk. Markets with elevated delinquency rates represented both a lead quality problem and a portfolio risk factor.</li>
+      <li><strong>Home values</strong> - average home values and the distribution of homes across value bands. The product had a qualifying price range. Markets where majority of homes fell below the threshold weren't addressable regardless of homeownership rates.</li>
     </ul>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">Building the Data Infrastructure</p>
-    <p>The primary data source was the American Community Survey — the Census Bureau's ACS five-year estimates, which provided the sample depth required for reliable ZIP-code-level analysis. I exported and transformed raw ACS datasets across homeownership, tenure, and home value dimensions, building the aggregation logic that rolled ZIP-level data up through city, MSA, and state levels into a coherent reporting hierarchy. Mortgage delinquency data was sourced separately and integrated at the MSA level.</p>
-    <p>I also layered in lead volume data from a marketing partner — not modeled estimates but actual leads available for purchase in each geography over a recent 30-day window. This grounded the Census-derived analysis in observed market activity, providing a real-world demand signal alongside the structural market characteristics.</p>
+    <p>The primary data source was the American Community Survey. The Census Bureau's ACS five-year estimates provided the sample depth required for reliable ZIP-code-level analysis. I exported and transformed raw ACS datasets across homeownership, tenure, and home value dimensions, building the aggregation logic that rolled ZIP-level data up through city, MSA, and state levels into a coherent reporting hierarchy.</p>
+    <p>Mortgage delinquency data was sourced separately and integrated at the MSA level, extrapolated across the geographic hierarchy where ZIP-level granularity wasn't available.</p>
+	<p>The result was a reporting framework that could answer a specific question at any geographic level: given this market's homeownership profile, tenure distribution, delinquency environment, and home value composition, how large is the genuinely addressable opportunity and how attractive is it relative to the product's economics?</p>
   </div>
 
   <!-- ARTIFACT: Census data import -->
   <div class="artifact-block">
-    <p class="artifact-label">ACS Census Data Import — ZIP-Level Raw Data</p>
+    <p class="artifact-label">ACS Census Data Import - ZIP-Level Raw Data</p>
     <img src="../assets/images/tam-census-raw.png" alt="Raw ACS Census data import showing ZIP-level housing estimates, ownership data, and tenure cohorts" class="artifact-img">
-    <p class="artifact-caption">Raw ACS five-year estimate data at the ZIP code level — the foundation layer of the analysis. Thousands of rows of housing unit estimates, occupancy rates, tenure cohorts, and home value distributions processed and transformed into the aggregated reporting framework.</p>
+    <p class="artifact-caption">Raw ACS five-year estimate data at the ZIP code level. Thousands of rows of housing unit estimates, occupancy rates, tenure cohorts, and home value distributions processed and transformed into the aggregated reporting framework.</p>
   </div>
 
   <!-- ARTIFACT: Market definition tab -->
   <div class="artifact-block">
-    <p class="artifact-label">Market Definition — ZIP to MSA Aggregation</p>
+    <p class="artifact-label">Market Definition - ZIP to MSA Aggregation</p>
     <img src="../assets/images/tam-market-definition.png" alt="Market definition tab showing ZIP code data aggregated to city and MSA level with homeownership, tenure, and value metrics" class="artifact-img">
-    <p class="artifact-caption">The market definition layer — ZIP-level data aggregated by market with homeownership counts, occupancy types, tenure cohort distributions, median home values, and weighted medians. This transformation layer fed the executive summary reporting.</p>
+    <p class="artifact-caption">The market definition layer - ZIP-level data aggregated by market with homeownership counts, occupancy types, tenure cohort distributions, median home values, and weighted medians. This transformation layer fed the executive summary reporting.</p>
   </div>
 
   <!-- ARTIFACT: Four reporting tables -->
   <div class="artifact-block">
-    <p class="artifact-label">Executive Summary — Four-Dimension Market Analysis</p>
+    <p class="artifact-label">Executive Summary - Four-Dimension Market Analysis</p>
     <img src="../assets/images/tam-summary-tables.png" alt="Four reporting tables showing homeownership, residency tenure, mortgage status, and home values across eight markets" class="artifact-img">
-    <p class="artifact-caption">The executive-facing deliverable — four measurement dimensions across eight markets simultaneously. Table 1: Homeownership rates and owner-occupied counts. Table 2: Residency tenure cohort distribution. Table 3: Mortgage status and delinquency rates. Table 4: Home value distribution across qualifying price bands. Highlighted cells indicate markets where home value concentration fell below the product threshold — a direct signal to deprioritize those geographies.</p>
+    <p class="artifact-caption">The executive-facing deliverable - four measurement dimensions across several markets simultaneously. Table 1: Homeownership rates and owner-occupied counts. Table 2: Residency tenure cohort distribution. Table 3: Mortgage status and delinquency rates. Table 4: Home value distribution across qualifying price bands. Highlighted cells indicate markets where home value concentration fell below the product threshold providing a direct signal to deprioritize those geographies.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">The Outcome</p>
     <p>The framework became a reference tool in C-level expansion strategy discussions as the business grew from 3 markets to 33 states. Market entry decisions were evaluated against the data alongside legal, regulatory, and operational considerations.</p>
-    <p>Critically the framework did more than identify attractive markets — it provided analytical cover for decisions not to enter markets that appeared attractive on conventional measures. High-density metros with strong name recognition but structurally low homeownership rates, or markets where home value distributions showed the majority of properties below the product's qualifying threshold, could be deprioritized with data rather than intuition. That kind of disciplined capital allocation was meaningful in a business model where every market entry required upfront marketing investment before any revenue was generated.</p>
+    <p>Critically, the framework did more than identify attractive markets, it provided analytical cover for decisions not to enter markets that appeared attractive on conventional measures. High-density metros with strong name recognition but structurally low homeownership rates, or markets where home value distributions showed the majority of properties below the product's qualifying threshold, could be deprioritized with data rather than intuition. That kind of disciplined capital allocation was meaningful in a business model where every market entry required upfront marketing and regulatory investment before any revenue was generated.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">What I'd Do Differently</p>
-    <p>The framework presented four reporting dimensions as parallel tables — each answering "how does this market look" independently. What it didn't do was answer "which market should we enter next" directly.</p>
-    <p>In hindsight I would have built a composite scoring model on top of the four dimensions — weighting each variable by its relative importance to the product's economics and producing a single market attractiveness score for each geography. Executives could rank and sequence market entry decisions from that score rather than synthesizing four separate tables themselves. The analytical foundation was sound. The last mile — translating parallel analysis into a prioritized decision output — was left to the people reading it rather than built into the framework itself. That's the gap I'd close if I were building it today.</p>
+    <p>The framework presented four reporting dimensions as parallel tables, homeownership, tenure, home values, and mortgage delinquency, each of which answering the question "how does this market look" independently. What it didn't do was answer "which market should we enter next" directly.</p>
+    <p>In hindsight, I should have built a composite scoring model on top of the four dimensions, weighing each variable by its relative importance to the product's economics and producing a single market attractiveness score for each geography. Executives could rank and sequence market entry decisions from that score rather than synthesizing four separate tables themselves.</p>
   </div>
 
   <div class="case-tags">
