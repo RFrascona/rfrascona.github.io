@@ -86,19 +86,96 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 2px;
     background: var(--paper-warm);
   }
+
+  .featured-card {
+    border-top: 2px solid var(--accent);
+    background: var(--paper);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .featured-card:hover { background: var(--cream); }
+
+  .featured-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .featured-title {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .featured-teaser {
+    font-size: 0.93rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  .featured-teaser strong { font-weight: 500; color: var(--ink); }
+
+  .featured-outcomes {
+    display: flex;
+    gap: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .feat-outcome { display: flex; flex-direction: column; gap: 4px; }
+
+  .feat-outcome-num {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .feat-outcome-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .featured-cta {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+    align-self: flex-start;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .featured-card:hover .featured-cta { color: var(--accent); border-color: var(--accent); }
 
   .stat-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
-    margin-bottom: 48px;
+    margin-top: 32px;
   }
 
   .stat-cell {
     background: var(--paper);
-    padding: 32px 28px;
+    padding: 28px 28px;
     opacity: 0;
     transform: translateY(16px);
     animation: fadeUp 0.6s ease forwards;
@@ -111,31 +188,48 @@
 
   .stat-number {
     font-family: var(--serif);
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     font-weight: 300;
     color: var(--accent);
     line-height: 1;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .stat-label {
     font-family: var(--mono);
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-muted);
     line-height: 1.4;
   }
 
+  .stat-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .stat-link:hover { color: var(--accent); border-color: var(--accent); }
+
   .hero-thesis {
     font-family: var(--serif);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 300;
     font-style: italic;
     line-height: 1.6;
     color: var(--ink-soft);
     border-left: 2px solid var(--accent);
     padding-left: 20px;
+    margin-bottom: 32px;
   }
 
   /* About */
@@ -355,28 +449,52 @@
     <p class="hero-summary">
       Product leader with an analytical foundation in <strong>behavioral science</strong> and 8+ years building data platforms and operational systems where precision and business outcomes are inseparable. I'm drawn to complex, ambiguous environments where the challenge is imposing structure on messy data and translating it into systems organizations can rely on for high-stakes decisions.
     </p>
+    <p class="hero-thesis" style="margin-bottom: 48px;">I build data systems that turn messy inputs into reliable decisions.</p>
     <a href="#work" class="hero-cta">View Selected Work</a>
   </div>
   <div class="hero-right">
+    <a href="cases/actuarial-models.html" class="featured-card">
+      <p class="featured-label">Lead Case Study · Residential PropTech · Platform & Data Systems</p>
+      <h2 class="featured-title">Actuarial Models & Institutional Capital Formation</h2>
+      <p class="featured-teaser">Institutional capital requires institutional trust. I co-developed the valuation models and data infrastructure that took a proptech platform from promising to credible. The result was a credit facility that made institutional investment possible.</p>
+      <div class="featured-outcomes">
+        <div class="feat-outcome">
+          <span class="feat-outcome-num">$40M</span>
+          <span class="feat-outcome-label">Credit facility</span>
+        </div>
+        <div class="feat-outcome">
+          <span class="feat-outcome-num">30M+</span>
+          <span class="feat-outcome-label">Transactions processed</span>
+        </div>
+        <div class="feat-outcome">
+          <span class="feat-outcome-num">33</span>
+          <span class="feat-outcome-label">States covered</span>
+        </div>
+      </div>
+      <span class="featured-cta">Read case study →</span>
+    </a>
     <div class="stat-grid">
       <div class="stat-cell">
-        <div class="stat-number">$40M</div>
-        <div class="stat-label">Institutional capital raise supported by platform work</div>
+        <div class="stat-number">80k+</div>
+        <div class="stat-label">Inbound leads evaluated daily across vendor integrations</div>
+        <a href="cases/lead-qualification.html" class="stat-link">see case →</a>
       </div>
       <div class="stat-cell">
         <div class="stat-number">35k+</div>
         <div class="stat-label">Assets evaluated through governed data systems</div>
+        <a href="cases/violation-detection.html" class="stat-link">see case →</a>
       </div>
       <div class="stat-cell">
         <div class="stat-number">60%</div>
         <div class="stat-label">Operational overhead reduction via AI automation</div>
+        <a href="cases/llm-automation.html" class="stat-link">see case →</a>
       </div>
       <div class="stat-cell">
         <div class="stat-number">33</div>
         <div class="stat-label">States covered by data and monitoring infrastructure</div>
+        <a href="cases/tam-framework.html" class="stat-link">see case →</a>
       </div>
     </div>
-    <p class="hero-thesis">I build data systems that turn messy inputs into reliable decisions.</p>
   </div>
 </div>
 
@@ -466,10 +584,9 @@
   </div>
   <div class="work-grid">
 
-    <!-- 1 -->
     <a href="cases/actuarial-models.html" class="work-card fade-in">
       <p class="work-card-meta">Residential PropTech · Platform & Data Systems · Lead Case Study</p>
-      <h3 class="work-card-title">Actuarial Models & $40M Capital Formation Platform</h3>
+      <h3 class="work-card-title">Actuarial Models & Institutional Capital Formation</h3>
       <p class="work-card-desc">Co-developing localized property sales probability curves from raw transaction data and building the data infrastructure that enabled institutional capital formation.</p>
       <div class="work-card-outcomes">
         <div class="work-outcome"><span class="work-outcome-num">$40M</span><span class="work-outcome-label">Credit facility</span></div>
@@ -555,8 +672,7 @@
       <p class="work-card-cta">Read case study →</p>
     </a>
 
-    <!-- 8 -->
-    <a href="cases/multi-entity.html" class="work-card fade-in thin">
+    <a href="cases/multi-entity.html" class="work-card fade-in">
       <p class="work-card-meta">Wholesale Real Estate Joint Venture · Platform Architecture</p>
       <h3 class="work-card-title">Multi-Entity CRM Architecture & Shared Platform Design</h3>
       <p class="work-card-desc">Collaboratively designing a multi-tenant data architecture that enabled two independent operating companies to share a single CRM platform with full data isolation.</p>
