@@ -45,26 +45,26 @@
 
   <div class="case-section">
     <p class="case-section-label">The Business Context</p>
-    <p>As the operation scaled nationally, lead acquisition became the operational heartbeat of the business. The model required a continuous supply of homeowner leads — people who owned their homes, had meaningful equity, and fell within the product's qualifying parameters. The cost of acquiring the wrong lead wasn't just the purchase price — it was the downstream sales effort wasted on contacts who could never convert.</p>
-    <p>The third-party lead marketplace offered volume and cost efficiency that other channels couldn't match. Dozens of vendors were generating homeowner inquiries at scale and selling them through real-time ping/post bidding marketplaces. The opportunity was real. So was the risk — bidding indiscriminately would have destroyed marketing ROI. The solution was a real-time qualification engine that evaluated every inbound lead against a multi-layer filter stack before deciding whether to bid, at what price, or whether to reject outright.</p>
+    <p>For a growing PropTech scaling nationwide, lead acquisition became the operational heartbeat of the business. The business model required a continuous supply of leads who owned their homes, had meaningful equity, and fell within the product's qualifying parameters. The cost of acquiring the wrong lead wasn't just the purchase price, it was the downstream sales effort wasted on contacts who could never convert.</p>
+    <p>The third-party lead marketplace offered volume and cost efficiency that other channels couldn't match. Dozens of vendors were generating homeowner inquiries at scale and selling them through real-time ping/post bidding marketplaces. However, this marketplace introduced the risk of bidding on unqualified leads and disrupting marketing ROI. The solution was a real-time qualification engine that evaluated every inbound lead against a multi-layer filter stack before deciding whether to bid, at what price, or whether to reject outright.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">My Role</p>
-    <p>I was not the architect of this system — that credit belongs to the lead engineer. My role was the connective tissue between the business and its external partner ecosystem, and between the system's performance data and the leadership decisions that shaped its behavior over time.</p>
-    <p>I owned the external vendor relationships end to end — API documentation, lead source provisioning, test lead validation, troubleshooting. I monitored system performance, conducted ad hoc analysis when anomalies appeared, and presented findings to the CEO, COO, and head of marketing. I also owned the lead routing configuration operationally, later overseeing a direct report who managed day-to-day configuration as the vendor ecosystem grew.</p>
+    <p>I was not the architect of this system, that credit belongs to the lead engineer. My role was the connective tissue between the business and its external partner ecosystem, and between the system's performance data and the leadership decisions that shaped its behavior over time.</p>
+    <p>I owned the external vendor relationships end to end, including API documentation, lead source provisioning, test lead validation, and troubleshooting. I monitored system performance, conducted ad hoc analysis when anomalies appeared, and presented findings to the the COO and head of marketing. I also owned the lead routing configuration operationally, later overseeing a direct report who managed day-to-day configuration as the vendor ecosystem grew.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">The Scale</p>
-    <p>By early 2021 — before the system reached its peak — the engine was evaluating between 50,000 and 107,000 gross leads per day. Across a single week in February 2021 the system processed 2.2 million inbound lead submissions. Of those, approximately 9% were identified as new property owners meeting basic criteria. Of those, roughly 2.4% of total gross volume resulted in actual bids — meaning the qualification stack was rejecting approximately 97.6% of everything it saw before a purchase decision was made.</p>
+    <p>By early 2021, before the system reached its peak, the engine was evaluating between 50,000 and 100,000 gross leads per day. Across a single week in February 2021 the system processed 2.2 million inbound lead submissions. Of those, approximately 9% were identified as new property owners meeting basic criteria. Of those, roughly 2.4% of total gross volume resulted in actual bids. This demonstrates the qualification stack was rejecting approximately 98% of everything it saw before a purchase decision was made.</p>
   </div>
 
   <!-- ARTIFACT: Scale data -->
   <div class="artifact-block">
     <p class="artifact-label">Daily Lead Volume & Qualification Funnel — February 2021</p>
     <img src="../assets/images/lead-scale-data.png" alt="Daily lead volume table showing gross leads, property owner identification, full match rates, price filtering, out of area filtering, and bid rates across one week" class="artifact-img">
-    <p class="artifact-caption">One week of operational data from early 2021 — before peak volume. Total gross leads ranged from 52k to 107k per day across 2.2M submissions. The Bid/Full column (bid rate as a percentage of full match leads) is the primary health metric. The February 12th anomaly (highlighted at 24%) triggered the diagnostic analysis below — where I decomposed contributing factors and projected recovery.</p>
+    <p class="artifact-caption">One week of operational data from early 2021. Total gross leads ranged from 52k to 107k per day across 2.2M submissions. The Bid/Full column (bid rate as a percentage of full match leads) is the primary health metric. The February 12th anomaly (highlighted at 24%) triggered the diagnostic analysis below where I decomposed contributing factors and projected recovery.</p>
   </div>
 
   <!-- ARTIFACT: Architecture diagram -->
@@ -100,19 +100,19 @@
     <p class="case-section-label">The Qualification Filter Stack</p>
     <p>Every inbound lead traversed a sequential filter stack before a bid decision was made:</p>
     <ul>
-      <li><strong>Geographic eligibility</strong> — state and ZIP code inclusion/exclusion rules reflecting licensing and market viability</li>
-      <li><strong>Homeownership verification</strong> — foundational filter; the product was only viable for homeowners</li>
-      <li><strong>Home value estimate</strong> — properties outside the qualifying value range excluded on both ends</li>
-      <li><strong>Homeowner name match</strong> — Melissa Data integration returning current owner of record; match type categorized as First & Last, First Only, Last Only, or First Initial + Last</li>
-      <li><strong>Owner age threshold</strong> — age criteria reflecting target demographic and actuarial assumptions</li>
-      <li><strong>Combined rule</strong> — Last Name Only matches rejected for younger age cohorts based on conversion data</li>
-      <li><strong>Phone carrier type</strong> — mobile numbers only; land lines excluded based on contact rate data</li>
+      <li><strong>Geographic eligibility</strong> - state and ZIP code inclusion/exclusion rules reflecting licensing and market viability</li>
+      <li><strong>Homeownership verification</strong> - the product was only viable for homeowners</li>
+      <li><strong>Home value estimate</strong> - properties outside the qualifying value range excluded on both ends</li>
+      <li><strong>Homeowner name match</strong> - Melissa Data integration returning current owner of record; match type categorized as First & Last, First Only, Last Only, or First Initial + Last</li>
+      <li><strong>Owner age threshold</strong> - age criteria reflecting target demographic and actuarial assumptions</li>
+      <li><strong>Combined rule</strong> - Last Name Only matches rejected for younger age cohorts based on conversion data</li>
+      <li><strong>Phone carrier type</strong> - mobile numbers only; land lines excluded based on contact rate data</li>
     </ul>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">Data-Driven Filter Optimization</p>
-    <p>The qualification criteria weren't static — they evolved continuously based on performance analysis. The match type analysis illustrates how this worked. Performance data across 42,000 leads revealed a stark conversion difference: first and last name matches converted to appointments at 5.0% versus 1.1% for no-match leads. In the no-match group, the 18–25 age cohort converted at 0.4% — essentially zero. The hypothesis was straightforward: these were children of homeowners, not homeowners themselves. A rule rejecting last-name-only matches for younger age cohorts was implemented as a result.</p>
+    <p>The qualification criteria weren't static, and they evolved continuously based on performance analysis. The match type analysis illustrates how this worked. Performance data across 42,000 leads revealed a stark conversion difference: first and last name matches converted to appointments at 5.0% versus 1.1% for no-match leads. In the no-match group, the 18–25 age cohort converted at 0.4% — essentially zero. The hypothesis was straightforward: these were children of homeowners, not homeowners themselves. A rule rejecting last-name-only matches for younger age cohorts was implemented as a result.</p>
   </div>
 
   <!-- ARTIFACT: Match type analysis -->
@@ -124,8 +124,8 @@
 
   <div class="case-section">
     <p class="case-section-label">The Outcome</p>
-    <p>At peak the engine was evaluating tens of thousands of leads per day across 16 active vendor integrations, purchasing selectively based on a qualification stack that rejected the substantial majority of what it saw. The system protected marketing ROI by ensuring that every purchased lead met the minimum criteria for a viable sales interaction before money changed hands.</p>
-    <p>The vendor ecosystem it supported was the marketing supply chain for an outbound operation that at its peak supported over 230 simultaneous transfer specialists. The lead qualification engine and the outbound segmentation infrastructure were two halves of the same machine — one controlled what entered the database, the other controlled how it was worked.</p>
+    <p>At its peak, the engine was evaluating tens of thousands of leads per day across 16 active vendor integrations, purchasing selectively based on a qualification stack that rejected the substantial majority of what it saw. The system protected marketing ROI by ensuring that every purchased lead met the minimum criteria for a viable sales interaction before money changed hands.</p>
+    <p>The vendor ecosystem it supported was the marketing supply chain for an outbound operation that at its peak supported over 230 simultaneous transfer specialists. The lead qualification engine and the outbound segmentation infrastructure were two halves of the same machine. One controlled what entered the database, the other controlled how it was worked.</p>
   </div>
 
   <div class="case-tags">
