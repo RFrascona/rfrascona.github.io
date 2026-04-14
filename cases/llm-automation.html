@@ -32,7 +32,7 @@
   <a href="../index.html#work" class="case-back">← All Work</a>
   <p class="case-eyebrow">Wholesale Real Estate Joint Venture · AI & Automation</p>
   <h1 class="case-headline">LLM-Powered SMS<br>Qualification System</h1>
-  <p class="case-deck">Defining the compliance guardrails, qualification logic, and human-in-the-loop escalation design for a customer-facing LLM deployment that replaced a salaried inside sales tier — reducing operational overhead by 60%.</p>
+  <p class="case-deck">Defining the compliance guardrails, qualification logic, and human-in-the-loop escalation design for a customer-facing LLM deployment that replaced an inside sales tier and reduced operational overhead by 60%.</p>
   <div class="case-outcomes-row">
     <div class="outcome-chip"><span class="outcome-number">60%</span><span class="outcome-label">Overhead reduction</span></div>
     <div class="outcome-chip"><span class="outcome-number">4</span><span class="outcome-label">Qualification pillars</span></div>
@@ -44,48 +44,48 @@
 
   <div class="case-section">
     <p class="case-section-label">The Business Context</p>
-    <p>The sales operation ran on three tiers. An outbound team made initial contact with prospects. An inside sales team received transferred calls, walked clients through a structured qualification process across four criteria — motivation to sell, timeline, pricing expectations, and property condition — and handed qualified deals to closing specialists. The closing specialists were the experts, and their time was the most valuable in the system. The two tiers in front of them existed primarily to ensure they only received deals worth closing.</p>
-    <p>The cost of that structure was significant. Salaried inside sales agents and outbound callers represented substantial fixed overhead. Leadership asked whether LLM technology could reduce that cost without reducing deal volume — specifically whether the outbound re-engagement function and the inside sales qualification function could be automated through SMS.</p>
+    <p>The sales operation ran on three tiers. An outbound team made initial contact with prospects. An inside sales team received transferred calls, walked clients through a structured qualification process across four criteria: motivation to sell, timeline, pricing expectations, and property condition. Qualified deals were then handed off to closing specialists. The closing specialists were the experts, and their time was the most valuable in the system. The two tiers in front of them existed primarily to ensure they only received deals worth closing.</p>
+    <p>The cost of that structure was significant. Salaried inside sales agents and outbound callers represented substantial fixed overhead. Leadership asked whether LLM technology could reduce that cost without reducing deal volume. Specifically, whether the outbound re-engagement function and the inside sales qualification function could be automated through SMS.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">My Role</p>
-    <p>I represented the business voice throughout the development process — translating the operational logic of the sales qualification process into system requirements engineering could build against. I oversaw that the four qualification pillars were correctly implemented in the conversation flow and helped design the Slack escalation behavior including the escalation triggers, the context surfaced to agents, and the tagging mechanism for growing the response database.</p>
-    <p>I was also responsible for building the complete reporting infrastructure for both automations in Tableau — tracking outbound message response rates, conversation progression through the qualification pillars, escalation frequency, and handoff outcomes. Reviewing failed interactions and recommending behavior modifications was an ongoing part of my role.</p>
+    <p>I represented the business voice throughout the development process, translating the operational logic of the sales qualification process into system requirements engineering could build against. I oversaw that the four qualification pillars were correctly implemented in the conversation flow and helped design the Slack escalation behavior including the escalation triggers, the context surfaced to agents, and the tagging mechanism for growing the response database.</p>
+    <p>I was also responsible for building the complete reporting infrastructure for both automations in Tableau, tracking outbound message response rates, conversation progression through the qualification pillars, escalation frequency, and handoff outcomes. Reviewing failed interactions and recommending behavior modifications was an ongoing part of my role.</p>
   </div>
 
   <!-- ARTIFACT: Architecture diagram -->
   <div class="artifact-block">
     <p class="artifact-label">LLM-Powered SMS Qualification System Architecture</p>
     <img src="../assets/diagrams/llm-architecture.png" alt="System architecture diagram showing outbound SMS trigger layer, LLM qualification engine with match/no-match decision paths, four pillar tracking, Slack escalation, and destination" class="artifact-img">
-    <p class="artifact-caption">Three-layer architecture — outbound SMS trigger with preset re-engagement sequences, LLM qualification engine with Q&A database matching and Slack escalation for unknown queries, four-pillar qualification tracking with immediate handoff on completion, and fallback scheduling logic for unanswered handoffs.</p>
+    <p class="artifact-caption">Three-layer architecture: outbound SMS trigger with preset re-engagement sequences, LLM qualification engine with Q&A database matching and Slack escalation for unknown queries, four-pillar qualification tracking with immediate handoff on completion, and fallback scheduling logic for unanswered handoffs.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">The Two Automations</p>
-    <p><strong>Outbound SMS re-engagement</strong> — a rule-based automation that sent a preset sequence of outbound messages to re-engage prospects who had previously been contacted but hadn't converted. This was not LLM-driven. Its purpose was to restart conversations that had gone cold and create the opening for the LLM qualification system to engage.</p>
-    <p><strong>LLM-powered qualification</strong> — when a prospect responded to an outbound message, the LLM took over. The system was designed to guide the client through the four qualification pillars via SMS conversation — establishing motivation to sell, timeline, pricing expectations, and property condition through natural dialogue rather than a scripted call.</p>
-    <p>The underlying architecture matched incoming client messages against a database of known questions and approved responses. If a match existed, the system replied automatically. If no match existed, the system escalated via a Slack integration, posting the full conversation context to a channel monitored by closing specialists. The specialist could respond as a one-off or tag the response to be added to the approved database — allowing the answer set to grow organically over time and reducing future escalation frequency.</p>
+    <p><strong>Outbound SMS re-engagement</strong> - a rule-based automation that sent a preset sequence of outbound messages to re-engage prospects who had previously been contacted but hadn't converted. This was not LLM-driven. Its purpose was to restart conversations that had gone cold and create the opening for the LLM qualification system to engage.</p>
+    <p><strong>LLM-powered qualification</strong> - when a prospect responded to an outbound message, the LLM took over. The system was designed to guide the client through the four qualification pillars via SMS conversation, establishing motivation to sell, timeline, pricing expectations, and property condition through natural dialogue rather than a scripted call.</p>
+    <p>The underlying architecture matched incoming client messages against a database of known questions and approved responses. If a match existed, the system replied automatically. If no match existed, the system escalated via a Slack integration, posting the full conversation context to a channel monitored by closing specialists. The specialist could respond as a one-off or tag the response to be added to the approved database. This allowed the answer set to grow organically over time and reducing future escalation frequency.</p>
     <p>Once a prospect was qualified across all four pillars, the system escalated immediately to the closing team via Slack. If the escalation went unanswered within a defined window, the bot would re-engage the client to schedule a call. Opt-out handling (STOP commands) and timezone-based sending windows were enforced on the outbound layer.</p>
   </div>
 
   <!-- ARTIFACT: Sentiment analysis -->
   <div class="artifact-block">
-    <p class="artifact-label">Outbound Re-engagement Response Analysis — Sentiment by Group</p>
+    <p class="artifact-label">Outbound Re-engagement Response Analysis - Sentiment by Group</p>
     <img src="../assets/images/llm-sentiment.png" alt="Response sentiment table segmented by client relationship status showing positive, negative, and no-response rates across missed-signing, never-scheduled, never-signed, and terminated-contract groups" class="artifact-img">
     <p class="artifact-caption">Outbound re-engagement response sentiment segmented by prior client relationship status. Terminated-contract group was the largest at 49.57% of total outreach — showing 13.73% positive response rate. Overall positive response rate of 12.55% across 470 interactions confirms the system was generating meaningful re-engagement from what were effectively cold or lost prospects.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">The Outcome</p>
-    <p>Initial results were promising enough that leadership made the decision to lay off the inside sales team and reduce the outbound agent headcount significantly. The combined reduction in salaried headcount produced a 60% decrease in operational overhead from those functions. The system handled hundreds of LLM-driven qualification conversations and thousands of outbound re-engagement messages during the period it operated.</p>
+    <p>Initial results were promising enough that leadership made the decision to replace the inside sales team and reduce the outbound agent headcount significantly. The combined reduction in headcount produced a 60% decrease in operational overhead from those functions. The system handled hundreds of LLM-driven qualification conversations and thousands of outbound re-engagement messages during the period it operated.</p>
   </div>
 
   <div class="case-section">
     <p class="case-section-label">What I'd Do Differently</p>
-    <p>The Slack escalation design was well-intentioned but overengineered in practice. The logic was sound — surface unknown questions to specialists, let them respond, grow the database organically. The problem was behavioral. Closing specialists focused on their own pipeline weren't monitoring the Slack channel with the attention the system required. Escalations went unanswered. The human-in-the-loop design assumed a level of agent engagement that the operational reality didn't support.</p>
-    <p>To realize the overhead reduction the business needed, the team was reduced before the system was mature enough to operate with minimal escalation. In hindsight I would have pushed harder to reduce escalation frequency before the headcount decision was made — setting a measurable escalation rate threshold that had to be met before the staffing reduction was approved.</p>
-    <p>I'd also reconsider the rigidity of the qualification flow. The bot was focused on obtaining answers to the four pillars and clients noticed. The conversation felt transactional rather than natural. A less linear approach to qualification — allowing the conversation to flow more organically while still capturing the necessary signals — would have produced better client experience and likely higher completion rates.</p>
+    <p>The Slack escalation design was well-intentioned but overengineered in practice. The logic was sound, however the end result was less than ideal. Closing specialists were focused on their own pipeline and weren't monitoring the Slack channel with the attention required. Escalations often went unanswered. The human-in-the-loop design assumed a level of agent engagement that the operational reality didn't support.</p>
+    <p>To realize the overhead reduction, the team was reduced before the system was mature enough to operate with minimal escalation. In hindsight, I would have pushed harder to allow time for the system to mature prior to cutting staff. </p>
+    <p>I'd also reconsider the rigidity of the qualification flow. The bot was focused on obtaining answers to the four pillars and that resulted in the conversation feeling transactional rather than natural. A less linear approach to qualification which allowed the conversation to flow more organically while still capturing the necessary signals would have produced better client experience and likely higher completion rates.</p>
   </div>
 
   <div class="case-tags">
